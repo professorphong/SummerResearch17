@@ -1,4 +1,13 @@
 function [Bt,ht,w,et] = ViolaJonesattempt(x,y,T)
+%-This is an attempt at getting a program to do Adaboost (sorry for the
+    %slightly confusing name). 
+%-x is a 24x24xn array of integrated images. 
+%-y is a vector of length n where y(i) = 1 if x(:,:,i) is a face, and y(i)= 0 if x(:,:,i) is not a face.
+%-T is the number of training rounds.
+%-Bt gives Beta_t for each training round
+%-ht gives enough information to specify the weak classifier that minimizes epsilon.
+%-w represents the weights from each training round.
+%- et gives epsilon_t for earch round.
 n = numel(y);
 
 %% Create a vector of the weights
