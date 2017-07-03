@@ -8,3 +8,4 @@ plot3(-sqrt(2)/2+t*sqrt(2)/2, -sqrt(2)/2-t*sqrt(2)/2, 5*pi/4+t) %This plots the 
 hold off 
 clearvars('t')
 %Here is a new comment @11:49am on 6/3/17
+%Here is another new comment @11:57 on 6/3/17
