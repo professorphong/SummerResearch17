@@ -1,5 +1,6 @@
 %Creates a 3d array of 24x24 integrated images (x), with a vector (y)
-%equal 1 if the images is a face, and 0 if it is not
+%where y(i) = 1 if x(:,:,i) is a face, and y(i)= 0 if x(:,:,i) is not a face.
+%The file paths must be changed if you are going to use this on a different computer!
 x = zeros(24,24,90);
 
 
