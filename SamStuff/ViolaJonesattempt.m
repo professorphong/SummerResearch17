@@ -21,7 +21,7 @@ n = numel(y);
     wtemp = wtemp/(sum(wtemp));
     
     w(1,:) = wtemp;
-    %% Epsilon sheeet
+    %% Classifiers and stuff
     H1 = [0 1]; 
     theta = [0.05:0.05:1];
     e = 0;
