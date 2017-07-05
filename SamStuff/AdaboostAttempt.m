@@ -16,7 +16,7 @@ n = numel(y);
     theta = [0.05:0.05:1];
     
     
-    ht = zeros(T+1,8); %ht(t,:) = [base_feature_t, x_coord_t, y_coord_t, x_scale_t, y_scale_t, polarity_t, threshold_t]
+    ht = zeros(T+1,7); %ht(t,:) = [base_feature_t, x_coord_t, y_coord_t, x_scale_t, y_scale_t, polarity_t, threshold_t]
     Bt = zeros(T+1,1);
     et = zeros(T+1,1);
     
@@ -35,17 +35,22 @@ for t = 1:T
     for j = 1:n
         e = e + w(t,j)*abs(weakclassifier3(fx_all(1,j,1),1,0.05) - y(j));
     end
-     enew = 0;
+    hx = zeros(1,n); 
+    hxnew = zeros(1,n);
+    enew = 0;
      for k = 1:F
         for pol = [-1 1]
             for thet = theta
                 for N = 1:n
-                   enew = enew + w(t,N)*abs(weakclassifier3(fx_all(k,N,1),pol,thet) - y(N));
+                   h_minus_y = abs(weakclassifier3(fx_all(k,N,1),pol,thet) - y(N));
+                   enew = enew + w(t,N)*h_minus_y;
+                   hxnew(N) = h_minus_y;
                 end
    
                 if enew < e
                     e = enew;
-                    ht(t+1,:) = [fx_all(k,j,2:6) pol thet];
+                    hx = hxnew;
+                    ht(t+1,:) = [permute(fx_all(k,1,2:6),[1 3 2]), pol thet];
                     et(t+1) = e;
                     Bt(t+1) = (e/(1-e));
                 end

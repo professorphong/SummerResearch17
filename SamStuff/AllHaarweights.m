@@ -1,6 +1,8 @@
 function [weights,f] = AllHaarweights(I,ScaleRange)
-%I is a 24x24 integrated image. 
-%ScaleRange gives the range of scales used on the features = [min_scale, max_scale] 
+%This function compares many Haar features to a single image. The results
+%are placed in a large array
+%-I is a 24x24 integrated image. 
+%-ScaleRange gives the range of scales used on the features = [min_scale, max_scale] 
 
 %% Do some combinatorics to figure out how many features we will have
 H1xmax = min([ScaleRange(2), 11]); H1ymax = min([ScaleRange(2), 23]);
@@ -51,7 +53,6 @@ for p = ScaleRange(1):H1xmax %Set the x scale
     for j = (p+1):(24 - p) %Set the range of x coords
         for q = ScaleRange(1):H1ymax %Set the y scale
             for k = (q+1):(24) %Set the range of y coords
-                f = f + 1;
                 G = HaarGen(H1,p,q,[j k]);
                 b = 0;
                 w = 0;
@@ -61,10 +62,11 @@ for p = ScaleRange(1):H1xmax %Set the x scale
                       w = w + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
                   elseif G(i,3) == 0
                       b = b + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
-                  end
-                  weight = w - b;
-                  weights(f,:) = [weight, 1, j, k, p, q];
+                  end  
                 end
+                f = f + 1;
+                weight = w - b;
+                weights(f,:) = [weight, 1, j, k, p, q];
             end
         end
     end
@@ -77,7 +79,6 @@ for p = ScaleRange(1):H2xmax %Set the x scale
     for j = (p+1):(24 - 2*p) %Set the range of x coords
         for q = ScaleRange(1):H2ymax %Set the y scale
             for k = (q+1):(24) %Set the range of y coords
-                f = f + 1;
                 G = HaarGen(H2,p,q,[j k]);
                 b = 0;
                 w = 0;
@@ -88,9 +89,10 @@ for p = ScaleRange(1):H2xmax %Set the x scale
                   elseif G(i,3) == 0
                       b = b + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
                   end
-                  weight = w - b;
-                  weights(f,:) = [weight, 2, j, k, p, q];
                 end
+                f = f + 1;
+                weight = w - b;
+                weights(f,:) = [weight, 2, j, k, p, q];
             end
         end
     end
@@ -102,7 +104,6 @@ for p = ScaleRange(1):H3xmax %Set the x scale
     for j = (p+1):(24) %Set the range of x coords
         for q = ScaleRange(1):H3ymax %Set the y scale
             for k = (q+1):(24 - q) %Set the range of y coords
-                f = f + 1;
                 G = HaarGen(H3,p,q,[j k]);
                 b = 0;
                 w = 0;
@@ -113,9 +114,10 @@ for p = ScaleRange(1):H3xmax %Set the x scale
                   elseif G(i,3) == 0
                       b = b + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
                   end
-                  weight = w - b;
-                  weights(f,:) = [weight, 3, j, k, p, q];
                 end
+                f = f + 1;
+                weight = w - b;
+                weights(f,:) = [weight, 3, j, k, p, q];
             end
         end
     end
@@ -127,7 +129,6 @@ for p = ScaleRange(1):H4xmax %Set the x scale
     for j = (p+1):(24) %Set the range of x coords
         for q = ScaleRange(1):H4ymax %Set the y scale
             for k = (q+1):(24 - 2*q) %Set the range of y coords
-                f = f + 1;
                 G = HaarGen(H4,p,q,[j k]);
                 b = 0;
                 w = 0;
@@ -138,9 +139,11 @@ for p = ScaleRange(1):H4xmax %Set the x scale
                   elseif G(i,3) == 0
                       b = b + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
                   end
-                  weight = w - b;
-                  weights(f,:) = [weight, 4, j, k, p, q];
+                  
                 end
+                f = f + 1;
+                weight = w - b;
+                weights(f,:) = [weight, 4, j, k, p, q];
             end
         end
     end
@@ -152,7 +155,6 @@ for p = ScaleRange(1):H5xmax %Set the x scale
     for j = (p+1):(24 - p) %Set the range of x coords
         for q = ScaleRange(1):H5ymax %Set the y scale
             for k = (q+1):(24 - q) %Set the range of y coords
-                f = f + 1;
                 G = HaarGen(H5,p,q,[j k]);
                 b = 0;
                 w = 0;
@@ -163,9 +165,10 @@ for p = ScaleRange(1):H5xmax %Set the x scale
                   elseif G(i,3) == 0
                       b = b + I(G(i,2),G(i,1)) - I(G(i,2) - q,G(i,1)) - I(G(i,2),G(i,1) - p) + I(G(i,2) - q,G(i,1) - p);
                   end
-                  weight = w - b;
-                  weights(f,:) = [weight, 5, j, k, p, q];
                 end
+                f = f + 1;
+                weight = w - b;
+                weights(f,:) = [weight, 5, j, k, p, q];
             end
         end
     end
