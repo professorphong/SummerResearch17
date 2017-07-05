@@ -40,7 +40,9 @@ total = 2*tot2block + 2*tot3block + tot4block;
 f = 0;
 weights = zeros(total,6); %weights(f,:) = [H(x), Base_feature, x_coord, y_coord, x_scale, y_scale] 
 
-H1 = [1 0]; H2 = [1 0 1]; H3 = [1;0]; H4 = [1;0;1]; H5 = [1 0;0 1];
+H1 = [1 0];%=>1 
+H2 = [1 0 1];%=>2
+H3 = [1;0]; H4 = [1;0;1]; H5 = [1 0;0 1];
 
 %Evaluate every feature based on H1
 

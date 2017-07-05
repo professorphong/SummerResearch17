@@ -24,11 +24,12 @@ n = numel(y);
     %% Classifiers and stuff
     H1 = [0 1]; 
     theta = [0.05:0.05:1];
-    e = 0;
-    %A first value of epsilon
-    for j = 1:n
-        e = e + w(j)*abs(weakclassifier(x(:,:,j),H1,[3 3],[2 2],1,0.5) - y(j));
-    end
+%     %this is where the epsilon we are minimizing will be stored.
+%     e = 0;
+%     %A first value of epsilon
+%     for j = 1:n
+%         e = e + w(j)*abs(weakclassifier(x(:,:,j),H1,[3 3],[2 2],1,0.5) - y(j));
+%     end
     
     ht = zeros(T+1,8); %ht(t,:) = [base_feature_t, x_coord_t, y_coord_t, x_scale_t, y_scale_t, polarity_t, threshold_t]
     Bt = zeros(T+1,1);
