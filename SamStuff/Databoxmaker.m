@@ -5,11 +5,11 @@ x = zeros(24,24,90);
 
 
 for i = 1:50
-   x(:,:,i) = csvread(strcat('G:\My Documents\MATLAB\Converted Images\Positive_converted\Face_',num2str(i),'_integral.dat')); 
+   x(:,:,i) = csvread(strcat('../images/Converted Images/Positive_converted/Face_',num2str(i),'_integral.dat')); 
 end
 
 for i = 1:40
-    x(:,:,i+50) = csvread(strcat('G:\My Documents\MATLAB\Converted Images\Negative_converted\UMD_',num2str(i),'_integral.dat'));
+    x(:,:,i+50) = csvread(strcat('../images/Converted Images/Negative_converted/UMD_',num2str(i),'_integral.dat'));
 end
 
 y = zeros(1,90);
