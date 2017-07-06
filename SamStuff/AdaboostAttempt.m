@@ -12,7 +12,7 @@ n = numel(y);
     wtemp = wtemp/(sum(wtemp));
     
     w(1,:) = wtemp;
-    %% Epsilon sheeet
+    %% Epsilon stuff
     theta = [0.05:0.05:1];
     
     
