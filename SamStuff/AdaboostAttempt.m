@@ -1,4 +1,7 @@
 function [Bt,ht,w,et] = AdaboostAttempt(x,y,T,ScaleRange)
+
+
+
 n = numel(y);
 
 %% Create a vector of the weights
@@ -16,9 +19,9 @@ n = numel(y);
     theta = [0.05:0.05:1];
     
     
-    ht = zeros(T+1,7); %ht(t,:) = [base_feature_t, x_coord_t, y_coord_t, x_scale_t, y_scale_t, polarity_t, threshold_t]
-    Bt = zeros(T+1,1);
-    et = zeros(T+1,1);
+    ht = zeros(T,7); %ht(t,:) = [base_feature_t, x_coord_t, y_coord_t, x_scale_t, y_scale_t, polarity_t, threshold_t]
+    Bt = zeros(T,1);
+    et = zeros(T,1);
     
     %Generate each f(x), where f is a feature
     [fx1,F] = AllHaarweights(x(:,:,1),ScaleRange);
@@ -50,9 +53,9 @@ for t = 1:T
                 if enew < e
                     e = enew;
                     hx = hxnew;
-                    ht(t+1,:) = [permute(fx_all(k,1,2:6),[1 3 2]), pol thet];
-                    et(t+1) = e;
-                    Bt(t+1) = (e/(1-e));
+                    ht(t,:) = [permute(fx_all(k,1,2:6),[1 3 2]), pol thet];
+                    et(t) = e;
+                    Bt(t) = (e/(1-e));
                 end
                 enew = 0;
             end
@@ -61,7 +64,7 @@ for t = 1:T
     
     for j = 1:n
         if hx(j) == 0
-            w(t+1,j) = w(t,j)*Bt(t+1);
+            w(t+1,j) = w(t,j)*Bt(t);
         else
             w(t+1,j) = w(t,j);
         end

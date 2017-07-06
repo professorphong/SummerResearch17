@@ -4,13 +4,13 @@ y = zeros(24,24);
 
 
 
-for i = 1:25
+for i = 41:65
     
-y = imresize(imread(strcat('G:\My Documents\MATLAB\positive\rawdata\b',num2str(i),'.bmp')),[24,24]);
+y = imresize(imread(strcat('../images/negative/UMD_0',num2str(i),'.jpg')),[24,24]);
 
 y = integralimage(y);
 
-csvwrite(strcat('G:\My Documents\MATLAB\Converted Images\Positive_converted\Face_',num2str(i+25),'_integral.dat'),y);
+csvwrite(strcat('../images/Converted Images/Negative_converted/UMD_',num2str(i),'_integral.dat'),y);
 end
 
 % I Figured out how to solve the problems described below.
