@@ -1,4 +1,4 @@
-function [Correct,Incorrect,Accuracy,C,diff] = StrongClassifier(x,y,ht,Bt)
+function [Correct,Incorrect,TotalAccuracy,diff,FaceAccuracy,NegAccuracy] = StrongClassifier(x,y,ht,Bt)
 %This function creates a strong classifier from the information generated
 %by AdaboostAttempt.m
 
@@ -54,4 +54,16 @@ Correct = numel(diff(diff==0));
 
 Incorrect = numel(y) - Correct;
 
-Accuracy = Correct/(numel(y));
+TotalAccuracy = Correct/(numel(y));
+
+Facediff = diff(y==1);
+
+FaceCorrect = numel(Facediff(Facediff==0));
+
+FaceAccuracy = FaceCorrect/(numel(y(y==1)));
+
+Negdiff = diff(y==0);
+
+NegCorrect = numel(Negdiff(Negdiff==0));
+
+NegAccuracy = NegCorrect/(numel(y(y==0)));
