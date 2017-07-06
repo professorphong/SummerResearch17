@@ -13,11 +13,11 @@ at = log(1./Bt);
 a_sum = sum(at);
 
 %create a place to put each h_t(x)
-htx = zeros(1,size(Bt,1));
+htx = zeros(1,size(Bt,2));
 
 %Evaluate the image with the weak classifiers. There is an if loop to
 %account for the 5 different base Haar features. 
-for j = 1:size(Bt);
+for j = 1:size(Bt,2);
    if ht(j,1) == 1
        htx(j) =  weakclassifier(x,[1 0],[ht(j,2) ht(j,3)],[ht(j,4) ht(j,5)],ht(j,6),ht(j,7));
    elseif ht(j,1) == 2
