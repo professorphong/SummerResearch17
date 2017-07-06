@@ -4,9 +4,9 @@ y = zeros(24,24);
 
 
 
-for i = 41:65
+for i = 100:100
     
-y = imresize(imread(strcat('../images/negative/UMD_0',num2str(i),'.jpg')),[24,24]);
+y = imresize(imread(strcat('../images/negative/UMD_',num2str(i),'.jpg')),[24,24]);
 
 y = integralimage(y);
 
