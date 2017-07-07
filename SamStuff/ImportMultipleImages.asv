@@ -10,7 +10,7 @@ y = imresize(imread(strcat('../images/Internet Pictures/Faces/InternetFace',num2
 
 y = integralimage(y);
 
-csvwrite(strcat('../images/Converted Images/Positive_converted/Internet Faces/InternetFace_',num2str(i),'_integral.dat'),y);
+csvwrite(strcat('../images/Converted Images/Positive_converted/Internet Faces/UMD_',num2str(i),'_integral.dat'),y);
 end
 
 % I Figured out how to solve the problems described below.
