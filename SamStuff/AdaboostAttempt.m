@@ -1,6 +1,4 @@
-function [Bt,ht,w,et] = AdaboostAttempt(x,y,T,ScaleRange)
-
-
+function [at,ht,Bt,w,et] = AdaboostAttempt(x,y,T,ScaleRange)
 
 n = numel(y);
 
@@ -71,3 +69,5 @@ for t = 1:T
     end
     w(t+1,:) = w(t+1,:)/(sum(w(t+1,:)));
 end
+
+at = log(1./Bt);

@@ -1,6 +1,8 @@
-function [Correct,Incorrect,TotalAccuracy,diff,FaceAccuracy,NegAccuracy] = StrongClassifier(x,y,ht,Bt)
+function [F_pos_rate,Detection_Rate,diff,Correct,C,Incorrect,TotalAccuracy,NegAccuracy] = StrongClassifier(x,y,ht,Bt,T)
 %This function creates a strong classifier from the information generated
 %by AdaboostAttempt.m
+
+Bt = Bt(1:T);
 
 %x is a single image. Bt and ht are outputs from AdaboostAttempt.m
 %C = 1 if x is a face, and C = 0 if x is not a face
@@ -60,10 +62,15 @@ Facediff = diff(y==1);
 
 FaceCorrect = numel(Facediff(Facediff==0));
 
-FaceAccuracy = FaceCorrect/(numel(y(y==1)));
+Detection_Rate = FaceCorrect/(numel(y(y==1)));
 
 Negdiff = diff(y==0);
 
 NegCorrect = numel(Negdiff(Negdiff==0));
 
 NegAccuracy = NegCorrect/(numel(y(y==0)));
+
+%Find False positive rate
+FaceWrong = numel(Facediff(Facediff==1));
+
+F_pos_rate = FaceWrong/(numel(y(y==1)));

@@ -33,7 +33,7 @@ end
 I = A;
 
 %Replace the desired pixels of A with the pixels of B
-I(a(1):(a(1)+rowB-1),a(2):(a(2)+colB-1)) = B; 
+I(a(2):(a(2)+colB-1),a(1):(a(1)+rowB-1)) = B; 
 
 figure
 imshow(I)
