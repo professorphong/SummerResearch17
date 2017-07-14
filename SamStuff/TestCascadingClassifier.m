@@ -7,8 +7,10 @@ C = zeros(1,length(y));
 
 a_sum = sum(Fullat,1);
 
-for i = 1:length(y)
+for i = 1:length(y) %This loop goes through each image
     for j = 1:length(FpL)
+        htx = zeros(FpL(j),1);
+        
         for k = 1:FpL(j)
             htx(k) = weakclassifier4(x(:,:,i),FullCascade(k,1,j),[FullCascade(k,2,j) FullCascade(k,3,j)],[FullCascade(k,4,j) FullCascade(k,5,j)],FullCascade(k,6,j),FullCascade(k,7,j),FullCascade,FpL);
         end
