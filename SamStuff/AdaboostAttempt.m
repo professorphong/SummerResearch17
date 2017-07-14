@@ -1,4 +1,4 @@
-function [at,ht,Bt,w,et] = AdaboostAttempt(x,y,T,ScaleRange)
+function [at,ht,w,Bt,et] = AdaboostAttempt(x,y,T,ScaleRange)
 
 n = numel(y);
 

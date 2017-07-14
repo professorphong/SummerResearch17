@@ -71,6 +71,6 @@ NegCorrect = numel(Negdiff(Negdiff==0));
 NegAccuracy = NegCorrect/(numel(y(y==0)));
 
 %Find False positive rate
-FaceWrong = numel(Facediff(Facediff==1));
+FaceWrong = numel(Negdiff(Negdiff==1));
 
-F_pos_rate = FaceWrong/(numel(y(y==1)));
+F_pos_rate = FaceWrong/(numel(y(y==0)));

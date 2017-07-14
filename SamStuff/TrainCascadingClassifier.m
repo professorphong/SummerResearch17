@@ -1,4 +1,4 @@
-function [FullCascade,Fullat] = TrainCascadingClassifier(f,d,F_target,P_train,N_train,P_val,N_val)
+function [FullCascade,Fullat,FpL] = TrainCascadingClassifier(f,d,F_target,P_train,N_train,P_val,N_val)
 %This function is used to train a cascading classifier. 
 %-f is the max false positive rate per layer.
 %-d is the minimum detection rate per layer.
@@ -18,7 +18,9 @@ F(1) = 1; D(1) = 1; %F(i) is the false positive rate of the first i layers. D(i)
 N_new = N_train; %The set of negative training exaples for each layer changes based on the performance of the 
                  %previous layer. N_new is just a place to put the relevent negative examples.
                  
-FullCascade = zeros(10,7,5); %This 
+FullCascade = zeros(10,7,1); %This is a 3D array containing the classifiers that make up each layer.
+                             %FullCascade(:,:,i) gives the stong classifier
+                             %for each layer (like ht from AdaboostAttempt.m)
 Fullat = zeros(2,2);
 
 %% 
@@ -34,24 +36,26 @@ while F(i) > F_target
    
    while F(i) > f*F(i-1)
       n = n + 1;
-      [at,ht,Bt,~,~] = AdaboostAttempt(x_train,y_train,n,[2 20]);
+      [at,ht,w,~,~] = AdaboostAttempt(x_train,y_train,n,[5 20]); %Use x_train to train a classifier
+                                                                  %with n features using Adaboost.
+      FpL(i-1) = n; %FpL is features per layer
       
-      x_val = cat(3,P_val,N_val);
-      y_val = zeros(1,size(x_val,3));
-      y_val(1:size(P_val,3)) = 1;
+      FullCascade(1:FpL(i-1),:,i-1) = ht;
+      Fullat(1:FpL(i-1),i-1) = at;
+                                                                  
+      %We need to evalueate the current cascaded classifier on a validation set.                                                          
       
-      [F(i),D(i)] = StrongClassifier(x_val,y_val,ht,Bt,n);
+      [F(i),D(i)] = TestCascadingClassifier(P_val,N_val,FullCascade,Fullat,FpL,2);
       
-      while D(i) < d*D(i - 1)
-         ht(:,7) = max((ht(:,7) - 0.005),0.005);
-         
-         [F(i),D(i)] = StrongClassifier(x_val,y_val,ht,Bt,n);
+      while D(i) < d*D(i-1)
+         ht(:,7) = max((ht(:,7) - 0.005),(ht(:,7)/2));
+         FullCascade(1:FpL(i-1),7,i-1) = ht(:,7);
+         [Fullat(1:FpL(i-1),i-1),~,~] = UpdateCoefficients(w,ht,x_train,y_train);
+         [F(i),D(i)] = TestCascadingClassifier(P_val,N_val,FullCascade,Fullat,FpL,2);
       end
    end
-   
-   FullCascade(1:size(ht,1),:,i-1) = ht; 
-   Fullat(1:size(ht,1),i-1) = %need to find the at associated with the new threshold
-   
-   [~,~,diff] = StrongClassifier(N_train,y_train,ht,Bt,n);
-   
+   if F(i) > F_target
+       [~,~,N_new] = TestCascadingClassifier([],N_train,FullCascade,Fullat,FpL,1);
+   else
+   end
 end
