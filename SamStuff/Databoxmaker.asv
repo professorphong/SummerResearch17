@@ -4,12 +4,12 @@
 xtest = zeros(24,24,100);
 
 
-for i = 1:50
-   xtest(:,:,i) = csvread(strcat('../images/Converted Images/Positive_converted/Face_',num2str(i+150),'_integral.dat')); 
+for i = 1:25
+   xtest(:,:,i) = csvread(strcat('../images/Converted Images/Positive_converted/Face_',num2str(i+175),'_integral.dat')); 
 end
 
-for i = 1:50
-    xtest(:,:,i+50) = csvread(strcat('../images/Converted Images/Negative_converted/UMD_',num2str(i+50),'_integral.dat'));
+for i = 1:25
+    xtest(:,:,i+25) = csvread(strcat('../images/Converted Images/Negative_converted/UMD_',num2str(i+75),'_integral.dat'));
 end
 
 ytest = zeros(1,100);

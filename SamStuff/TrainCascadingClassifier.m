@@ -27,7 +27,7 @@ Fullat = zeros(2,2);
 
 while F(i) > F_target
    i = i + 1;
-   n = 0;
+   FpL(i-1) = 0;
    F(i) = F(i - 1);
    
    x_train = cat(3,P_train,N_new);
@@ -35,10 +35,10 @@ while F(i) > F_target
    y_train(1:size(P_train,3)) = 1;
    
    while F(i) > f*F(i-1)
-      n = n + 1;
-      [at,ht,w,~,~] = AdaboostAttempt(x_train,y_train,n,[5 20]); %Use x_train to train a classifier
+      FpL(i-1) = FpL(i-1) + 1 %FpL is features per layer
+      
+      [at,ht,w,~,~] = AdaboostAttempt(x_train,y_train,FpL(i-1),[2 20]); %Use x_train to train a classifier
                                                                   %with n features using Adaboost.
-      FpL(i-1) = n; %FpL is features per layer
       
       FullCascade(1:FpL(i-1),:,i-1) = ht;
       Fullat(1:FpL(i-1),i-1) = at;
