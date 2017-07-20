@@ -26,7 +26,7 @@
 % %%%%%%%%
 rng(1, 'twister')
 
-texture1 = 'img/cottonBlue.png'; 
+texture1 = 'img/woodimage.png'; 
 texture2 = 'img/fabric.png';
 
 %% sample 500 random patches from a texture image: cottonBlue
